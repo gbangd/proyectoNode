@@ -1,0 +1,112 @@
+!!! 5
+html(lang='es')
+head
+    meta(charset='utf-8')
+    title Pagina de Articulos
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(href='css/bootstrap.css', rel='stylesheet')
+    style(type='text/css')
+    link(href='css/bootstrap-responsive.css', rel='stylesheet')
+    //if lt IE 9
+      script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+    link(rel='shortcut icon', href='ico/favicon.ico')
+    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='ico/apple-touch-icon-144-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='ico/apple-touch-icon-114-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='ico/apple-touch-icon-72-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', href='ico/apple-touch-icon-57-precomposed.png')
+    link(href='http://fonts.googleapis.com/css?family=Lato:300', rel='stylesheet', type='text/css')
+  body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.brand(href='index.php')
+            span.color-highlight Mi
+            | Empresa
+          .nav-collapse
+            ul.nav.pull-right
+              li
+                a(href='#') Inicio
+              li.active
+                a(href='articulos.php') Articulos
+              li
+                a(href='#') Quienes Somos
+              li
+                a(href='#') Contactenos
+    .container
+      #myCarousel.carousel.slide
+        .carousel-inner
+          .item.active
+            img(src='img/featured/6.jpg', alt='')
+            .carousel-caption
+              h4 Somos Articulos
+              p
+                i "Los mejores articulos de la region"
+      hr
+      .row
+        .span8
+          #tablaDeDatos.well          
+          div(style='height: 50px;')
+            button#asc.btn Ascendentemente
+            button#dsc.btn Descendentemente
+          .well
+            p
+              h2 Comprar un Articulo 
+            form#formularioFactura.well
+              input#id.span3(type='text', placeholder='Id Producto')
+              input#cantidad.span3(type='text', placeholder='Cantidad')
+              br
+              button.btn(type='submit') Agregar Al Carrito
+              button#comprar.btn(type='submit', style='display: none;') Comprar
+            #factura.well
+        .span4
+          p
+            h3 Busqueda por Nombre de Articulo
+          div(style='height: 171px;')
+            form#formularioBuscarPorNombre.well
+              | Nombre:
+              br
+              input#nombre.span3(type='text', placeholder='Identificador')
+              br
+              button.btn(type='submit') Iniciar Busqueda
+          p
+            h3 Busqueda por Precio de Articulo
+          div(style='height: 171px;')
+            form#formularioBuscarPorPrecio.well
+              | Nombre:
+              br
+              input#precio.span3(type='text', placeholder='Identificador')
+              br
+              button.btn(type='submit') Iniciar Busqueda
+          p
+            h3 Listar todos los datos
+          div(style='height: 100px;')
+            button#botonListarDatos.btn(type='submit') Listar Articulos
+      br
+      br
+      hr
+      footer.row
+        p
+          | ©2013 UPB Montería.
+          br
+          | Desarrollado por
+          a(href='#') Marcela Benitez
+    script(src='js/jquery.js')
+    script(src='js/datamanagement.js')
+    script(src='js/bootstrap-transition.js')
+    script(src='js/bootstrap-carousel.js')
+    script(src='js/bootstrap-alert.js')
+    script(src='js/bootstrap-modal.js')
+    script(src='js/bootstrap-dropdown.js')
+    script(src='js/bootstrap-scrollspy.js')
+    script(src='js/bootstrap-tab.js')
+    script(src='js/bootstrap-tooltip.js')
+    script(src='js/bootstrap-popover.js')
+    script(src='js/bootstrap-button.js')
+    script(src='js/bootstrap-collapse.js')
+    script(src='js/bootstrap-typeahead.js')

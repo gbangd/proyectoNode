@@ -1,0 +1,56 @@
+<html>
+
+<head>
+
+    <script src='/socket.io/socket.io.js'></script>
+    <script>
+        function ejecutar() {
+
+            var messages = [];
+            var socket = io.connect('http://127.0.0.1:8080');
+            var field = document.getElementById("field");
+            var sendButton = document.getElementById("send");
+            var content = document.getElementById("content");
+
+            socket.on('message', function(data) {
+                if (data.message) {
+                    messages.push(data.message);
+                    var html = '';
+                    for (var i = 0; i < messages.length; i++) {
+                        html += messages[i] + '<br />';
+                    }
+                    content.innerHTML = html;
+                } else {
+                    console.log("There is a problem:", data);
+                }
+            });
+
+            sendButton.onclick = function() {
+                var text = "<%= user.displayName %> dice: " + field.value;
+                field.value = "";
+                socket.emit('send', {
+                    message: text
+                });
+            };
+
+        }
+    </script>
+
+</head>
+
+<body onload="ejecutar()">
+    <h3>Chat de Prueba</h3>
+    <div id="Conversacion anterior">
+    
+    </div>
+    <div id="content">
+        
+    </div>
+    <input type="text" id="field">
+    <button id="send">Enviar</button>
+    <a href="/">Volver</a>
+
+
+</body>
+
+</html>

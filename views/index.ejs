@@ -6,15 +6,20 @@
     <% if (!user) { %>
         Holaaaaaa changossssss !!!!
         <a href="/auth/twitter">Sign in with Twitter</a>
+        <a href="/mongo">Datos</a>
     <% } else { %>
         <!--
         <script type="text/jscript">
             location.href='http://localhost/server/site/articulosjson.html?<%= user.displayName %>';
         </script>-->
         <h2>
-            Hola <%= user.displayName %>
+            Hola <%=user.displayName %>
         </h2>
+        <a href="/chat">Chat</a>
         <a href="/logout">Log out</a>
+        
     <% } %>
+    <br/>
+    
 </body>
 </html>

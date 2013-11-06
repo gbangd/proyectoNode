@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Prueba de Mongo</title>
+	
+</head>
+<body>
+	<% if (!datos) { %>
+        <h2>No hay datos</h2>
+    <% } else {
+        //var arrayDeDatos = datos;
+        var i;
+        for(i=0;i<datos.length;i++){
+    %>
+        <h3><%= datos[i]['nombre'] %></h3>
+    <% } }%>
+	
+</body>
+</html>

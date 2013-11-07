@@ -108,13 +108,13 @@ app.configure(function() {
 
 //Renderizado de las Paginas 
 app.get('/', function(req, res) {
-        res.render('index', { user: req.user });        
-});
-
-
-app.get('/json', function(req, res) {
         res.render('articulosjson', { user: req.user });        
 });
+
+/**
+app.get('/json', function(req, res) {
+        res.render('articulosjson', { user: req.user });        
+});*/
 
 
 /**
@@ -130,7 +130,7 @@ app.get('/login', function(req, res) {
 
 app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/json');
+  res.redirect('/');
 });
 
 
@@ -164,7 +164,7 @@ passport.use(new TwitterStrategy({
 app.get('/auth/twitter', passport.authenticate('twitter'));
 
 app.get('/auth/twitter/callback', 
-  passport.authenticate('twitter', { successRedirect: '/json',
+  passport.authenticate('twitter', { successRedirect: '/',
                                      failureRedirect: '/login' }));
 
 

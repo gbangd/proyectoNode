@@ -113,8 +113,8 @@
         <hr>
         <div class="row">
             <div class="span8">
-                <div class="well" id="tablaDeDatos">
-
+                <div class="well table-responsive" id="tablaDeDatos">
+                    
                     <!--
                     <table class="table table-striped">
                         <tr><th>Id</th><th>Codigo</th><th>Nombre</th><th>Precio</th><th>Stock</th></tr>
@@ -141,7 +141,7 @@
 
                     </div>
                 </div>
-                <div class="well" style="height: 340px;">
+                <div class="well span8" style="margin: 0 auto; height: auto;">
 
                     <% if (!user) { %>
                         <p>
@@ -170,9 +170,10 @@
                                 <input type="text" id="fieldChat" class="span3" id="nombre">
                                 <br/>
                                 <button id="sendChat" class="btn">Enviar el Mensaje</button>                                                </div>
-                            <div class="span3 well" id="contenedorcChat" style="max-height:200px; overflow:scroll; overflow-y: scroll; overflow-y:visible; overflow-x:hidden">
-                                <div style="max-height:50%; margin:0 auto; background-color:#b4be9e" id="contentChat">
+                            <div class="span3 well" id="contenedorcChat" style="max-height:200px; overflow:scroll; overflow-y: scroll; overflow-y:visible; overflow-x:hidden;background-color:#b4be9e">
                                 
+                                <div class=" row well" style="max-height:50%; margin:0 auto; " >
+                                    <div class="table-responsive" id="contentChat"></div>
                                 </div>
                             </div>
                             <% } %>

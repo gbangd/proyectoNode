@@ -7,7 +7,7 @@
         function ejecutar() {
 
             var messages = [];
-            var socket = io.connect('http://127.0.0.1:8080');
+            var socket = io.connect('http://192.168.0.13:8080');
             var field = document.getElementById("field");
             var sendButton = document.getElementById("send");
             var content = document.getElementById("content");
@@ -21,12 +21,14 @@
                     }
                     content.innerHTML = html;
                 } else {
-                    console.log("There is a problem:", data);
+                    console.log("Hay un problema:", data);
                 }
             });
 
             sendButton.onclick = function() {
+                <% if (user) {%>
                 var text = "<%= user.displayName %> dice: " + field.value;
+                <% } %>
                 field.value = "";
                 socket.emit('send', {
                     message: text

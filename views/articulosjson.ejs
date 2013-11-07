@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Pagina de Articulos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+    </style>
+    <link href="./css/bootstrap-responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+
+    <script src='/socket.io/socket.io.js'></script>
+    <script>
+        function ejecutar() {
+
+            var messages = [];
+            var socket = io.connect('http://192.168.0.13:8080');
+            var field = document.getElementById("fieldChat");
+            var sendButton = document.getElementById("sendChat");
+            var content = document.getElementById("contentChat");
+
+            socket.on('message', function(data) {
+                if (data.message) {
+                    messages.push(data.message);
+                    var html = '<table class="table-striped">';
+                    for (var i = 0; i < messages.length; i++) {
+                        html += '<tr><td>'+messages[i] + '</td></tr>';                        
+                    }
+                    html += '</table>';
+                    content.innerHTML = html;
+                } else {
+                    console.log("Hay un problema:", data);
+                }
+            });
+
+            sendButton.onclick = function() { <%
+                if (user) { %>
+                    var text = "<%= user.displayName %> dice: " + field.value; <%
+                } %>
+                    field.value = "";
+                socket.emit('send', {
+                    message: text
+                });
+            };
+
+        }
+    </script>
+</head>
+
+<body onload="ejecutar()">
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="#">
+                    <span class="color-highlight">Mi</span>Empresa</a>
+                <div class="nav-collapse">
+                    <ul class="nav pull-right">
+                        <li>
+                            <a href="#">Inicio</a>
+                        </li>
+                        <li class="active">
+                            <a href="articulos.php">Articulos</a>
+                        </li>
+                        <li>
+                            <a href="#">Quienes Somos</a>
+                        </li>
+                        <li>
+                            <a href="#">Contactenos</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="myCarousel" class="carousel slide">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="img/featured/6.jpg" alt="" style="margin:0 auto; width:100%">
+                    <div class="carousel-caption">
+                        <h4>Somos Articulos</h4>
+                        <p>
+                            <i>"Los mejores articulos de la region"</i>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <hr>
+        <div class="row">
+            <div class="span8">
+                <div class="well" id="tablaDeDatos">
+
+                    <!--
+                    <table class="table table-striped">
+                        <tr><th>Id</th><th>Codigo</th><th>Nombre</th><th>Precio</th><th>Stock</th></tr>
+
+                    </table>-->
+                </div>
+                <div style="height: 50px;">
+                    <button class="btn" id="asc">Ascendentemente</button>
+                    <button class="btn" id="dsc">Descendentemente</button>
+                </div>
+
+                <div class="well">
+                    <p>
+                        <h2>Comprar un Articulo</h2>
+                    </p>
+                    <form class="well" id="formularioFactura">
+                        <input type="text" class="span3" placeholder="Id Producto" id="id">
+                        <input type="text" class="span3" placeholder="Cantidad" id="cantidad">
+                        <br>
+                        <button type="submit" class="btn">Agregar Al Carrito</button>
+                        <button id="comprar" class="btn" type="submit" style="display:none">Comprar</button>
+                    </form>
+                    <div class="well" id="factura">
+
+                    </div>
+                </div>
+                <div class="well" style="height: 340px;">
+
+                    <% if (!user) { %>
+                        <p>
+                            <h2>Chat</h2>
+                        </p>
+                        <a href="/auth/twitter" class="btn">Ingresa por Twitter
+                            <span class="glyphicon glyphicon-off"></span>
+                        </a>
+                        <% } else { %>
+
+                            <div class="well" style="heigth:100px">
+
+                                <h2>
+                                    Hola
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <%=user.displayName %>!
+                                        <a href="/logout" class="span1 btn" style="float:right">Salir
+                                            <span class="glyphicon glyphicon-off"></span>
+                                        </a>
+                                </h2>
+
+                            </div>
+                            <div class="span3 well">
+                                <h3>Mensaje:</h3>
+                                <br/>
+                                <input type="text" id="fieldChat" class="span3" id="nombre">
+                                <br/>
+                                <button id="sendChat" class="btn">Enviar el Mensaje</button>                                                </div>
+                            <div class="span3 well" id="contenedorcChat" style="max-height:200px; overflow:scroll; overflow-y: scroll; overflow-y:visible; overflow-x:hidden">
+                                <div style="max-height:50%; margin:0 auto; background-color:#b4be9e" id="contentChat">
+                                
+                                </div>
+                            </div>
+                            <% } %>
+
+                </div>
+            </div>
+            <div class="span4">
+
+                <p>
+                    <h3>Busqueda por Nombre de Articulo</h3>
+                </p>
+                <div style="height: 171px">
+                    <form class="well" id="formularioBuscarPorNombre">
+                        Nombre:
+                        <br/>
+                        <input type="text" class="span3" placeholder="Identificador" id="nombre">
+                        <br>
+                        <button type="submit" class="btn">Iniciar Busqueda</button>
+                    </form>
+                </div>
+                <p>
+                    <h3>Busqueda por Precio de Articulo</h3>
+                </p>
+                <div style="height: 171px">
+                    <form class="well" id="formularioBuscarPorPrecio">
+                        Nombre:
+                        <br/>
+                        <input type="text" class="span3" placeholder="Identificador" id="precio">
+                        <br>
+                        <button type="submit" class="btn">Iniciar Busqueda</button>
+                    </form>
+                </div>
+                <p>
+                    <h3>Listar todos los datos</h3>
+                </p>
+                <div style="height: 100px">
+                    <button type="submit" class="btn" id="botonListarDatos">Listar Articulos</button>
+                </div>
+
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <hr>
+        <footer class="row">
+            <p>
+                &copy;2013 UPB Montería.
+                <br>Desarrollado por
+                <a href="#">Marcela Benitez, Carlos Castilla y Robinson Ayola</a>
+            </p>
+        </footer>
+
+    </div>
+
+    <script src="./js/jquery.js"></script>
+    <script>
+        $(document).ready(function(){    
+        $('#contenedorcChat').attr('scrollTop', $('#contenedorcChat').attr('scrollHeight'));
+        $("#contenedorcChat".animate({scrollTop: $("#contenedorcChat").scrollHeight});
+                                     });
+        $("#sendChat").onclick(function(){
+            $("#contenedorcChat".animate({scrollTop: $("#contenedorcChat").scrollHeight});
+        });
+    </script>
+    <script src="./js/datamanagement.js"></script>
+    <script src="./js/bootstrap-transition.js"></script>
+    <script src="./js/bootstrap-carousel.js"></script>
+    <script src="./js/bootstrap-alert.js"></script>
+    <script src="./js/bootstrap-modal.js"></script>
+    <script src="./js/bootstrap-dropdown.js"></script>
+    <script src="./js/bootstrap-scrollspy.js"></script>
+    <script src="./js/bootstrap-tab.js"></script>
+    <script src="./js/bootstrap-tooltip.js"></script>
+    <script src="./js/bootstrap-popover.js"></script>
+    <script src="./js/bootstrap-button.js"></script>
+    <script src="./js/bootstrap-collapse.js"></script>
+    <script src="./js/bootstrap-typeahead.js"></script>
+</body>
+
+</html>
+<!--      <form id="formulario1">
+            <input type="text" id="nombre"/>
+            <button id="boton-listar">Listar</button>
+        </form>
+  -->

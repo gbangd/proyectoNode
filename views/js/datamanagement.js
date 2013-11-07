@@ -3,7 +3,9 @@
  * and open the template in the editor.
  */
 $(document).ready(function(){
-	$.post("gestionArticulos.php",function(resultado){
+  
+	$.post("http://localhost/server/site/gestionArticulos.php",function(resultado){
+                                            
                 var dato = "<h1>Artículos</h1><br/>";
                 
                 if($.isEmptyObject(resultado))
@@ -21,7 +23,7 @@ $(document).ready(function(){
                             dato+="<td>"+this['precioUnidad']+"</td>";
                             dato+="<td>"+this['stock']+"</td>";
                             dato+="<td>"+this['descripcion']+"</td>";
-                            dato+="<td><img src='imagenes/"+this['imagen']+"' widht='40px' height='60px'/></td>";
+                            dato+="<td><img src='http://localhost/server/site/imagenes/"+this['imagen']+"' widht='40px' height='60px'/></td>";
                             dato+="</tr>";
                     });
                     dato+="</table>";
@@ -34,7 +36,7 @@ $(document).ready(function(){
 $("#formularioBuscarPorNombre").submit(function(event){
 	event.preventDefault();
 	var dato1 = $("#nombre").val();
-	$.post("gestionArticulos.php",{nombre:dato1},function(resultado){
+	$.post("http://localhost/server/site/gestionArticulos.php",{nombre:dato1},function(resultado){
                 var dato = "<h1>Artículos</h1><br/>";
                 if($.isEmptyObject(resultado))
                 {
@@ -52,7 +54,7 @@ $("#formularioBuscarPorNombre").submit(function(event){
                             dato+="<td>"+this['precioUnidad']+"</td>";
                             dato+="<td>"+this['stock']+"</td>";
                             dato+="<td>"+this['descripcion']+"</td>";
-                            dato+="<td><img src='imagenes/"+this['imagen']+"' widht='40px' height='60px'/></td>";
+                            dato+="<td><img src='http://localhost/server/site/imagenes/"+this['imagen']+"'      widht='40px' height='60px'/></td>";
                             dato+="</tr>";
                     });
                     dato+="</table>";
@@ -66,7 +68,7 @@ $("#formularioBuscarPorNombre").submit(function(event){
 $("#formularioBuscarPorPrecio").submit(function(event){
 	event.preventDefault();
 	var dato1 = $("#precio").val();
-	$.post("gestionArticulos.php",{precio:dato1},function(resultado){
+	$.post("http://localhost/server/site/gestionArticulos.php",{precio:dato1},function(resultado){
                 var dato = "<h1>Artículos</h1><br/>";
                 if($.isEmptyObject(resultado))
                 {
@@ -83,7 +85,7 @@ $("#formularioBuscarPorPrecio").submit(function(event){
                             dato+="<td>"+this['precioUnidad']+"</td>";
                             dato+="<td>"+this['stock']+"</td>";
                             dato+="<td>"+this['descripcion']+"</td>";
-                            dato+="<td><img src='imagenes/"+this['imagen']+"' widht='40px' height='60px'/></td>";
+                            dato+="<td><img src='http://localhost/server/site/imagenes/"+this['imagen']+"' widht='40px' height='60px'/></td>";
                             dato+="</tr>";
                     });
                     dato+="</table>";
@@ -94,7 +96,7 @@ $("#formularioBuscarPorPrecio").submit(function(event){
 
 //Listar todos los datos
 $("#botonListarDatos").click(function(){
-	$.post("gestionArticulos.php",function(resultado){
+	$.post("http://localhost/server/site/gestionArticulos.php",function(resultado){
                 var dato = "<h1>Artículos</h1><br/>";
                 
                 if($.isEmptyObject(resultado))
@@ -112,7 +114,7 @@ $("#botonListarDatos").click(function(){
                             dato+="<td>"+this['precioUnidad']+"</td>";
                             dato+="<td>"+this['stock']+"</td>";
                             dato+="<td>"+this['descripcion']+"</td>";
-                            dato+="<td><img src='imagenes/"+this['imagen']+"' widht='40px' height='60px'/></td>";
+                            dato+="<td><img src='http://localhost/server/site/imagenes/"+this['imagen']+"' widht='40px' height='60px'/></td>";
                             dato+="</tr>";
                     });
                     dato+="</table>";
@@ -124,7 +126,7 @@ $("#botonListarDatos").click(function(){
 //Ordenar Ascendente
 $("#asc").click(function(){
         var dato1 = "";
-	$.post("gestionArticulos.php",{asc:dato1},function(resultado){
+	$.post("http://localhost/server/site/gestionArticulos.php",{asc:dato1},function(resultado){
                 var dato = "<h1>Artículos</h1><br/>";
                 
                 if($.isEmptyObject(resultado))
@@ -142,7 +144,7 @@ $("#asc").click(function(){
                             dato+="<td>"+this['precioUnidad']+"</td>";
                             dato+="<td>"+this['stock']+"</td>";
                             dato+="<td>"+this['descripcion']+"</td>";
-                            dato+="<td><img src='imagenes/"+this['imagen']+"' widht='40px' height='60px'/></td>";
+                            dato+="<td><img src='http://localhost/server/site/imagenes/"+this['imagen']+"' widht='40px' height='60px'/></td>";
                             dato+="</tr>";
                     });
                     dato+="</table>";
@@ -154,7 +156,7 @@ $("#asc").click(function(){
 //Ordenar Descendente
 $("#dsc").click(function(){
         var dato1 = "";
-	$.post("gestionArticulos.php",{desc:dato1},function(resultado){
+	$.post("http://localhost/server/site/gestionArticulos.php",{desc:dato1},function(resultado){
                 var dato = "<h1>Artículos</h1><br/>";
                 
                 if($.isEmptyObject(resultado))
@@ -172,7 +174,7 @@ $("#dsc").click(function(){
                             dato+="<td>"+this['precioUnidad']+"</td>";
                             dato+="<td>"+this['stock']+"</td>";
                             dato+="<td>"+this['descripcion']+"</td>";
-                            dato+="<td><img src='imagenes/"+this['imagen']+"' widht='40px' height='60px'/></td>";
+                            dato+="<td><img src='http://localhost/server/site/imagenes/"+this['imagen']+"' widht='40px' height='60px'/></td>";
                             dato+="</tr>";
                     });
                     dato+="</table>";
@@ -187,7 +189,7 @@ $("#formularioFactura").submit(function(event){
 	var dato1 = $("#id").val();
         var dato2 = $("#cantidad").val();
 
-        $.post("gestionArticulos.php",{id:dato1, cantidad:dato2},function(resultado){
+        $.post("http://localhost/server/site/gestionArticulos.php",{id:dato1, cantidad:dato2},function(resultado){
                 var dato = "<h1>Factura</h1><br/>";
                 var total =0;
                 if($.isEmptyObject(resultado))
@@ -219,7 +221,7 @@ $("#formularioFactura").submit(function(event){
 //Comprar
 $("#comprar").click(function(){
         var dato2 = $("#id").val();
-	$.post("gestionArticulos.php",{comprar:dato2},function(resultado){
+	$.post("http://localhost/server/site/gestionArticulos.php",{comprar:dato2},function(resultado){
                 var dato = "<h1>Compra correcta :)</h1><br/>";
                 resultado = "hola";
                 $("#factura").html(dato);

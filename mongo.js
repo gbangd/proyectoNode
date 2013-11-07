@@ -5,8 +5,14 @@ var passport = require('passport')
   , TwitterStrategy = require('passport-twitter').Strategy;
 
 
+/** Con la mia
 var TWITTER_CONSUMER_KEY = "QlBLsy7OFfWFTfnY5LlkXQ";
 var TWITTER_CONSUMER_SECRET = "00NzdqmNoctWtdEWQuGSqnkcC0ISrjtQITbEzcMZtuY";
+*/
+
+var TWITTER_CONSUMER_KEY = "0PIumuh8Qj0BnJfRojTU4g";
+var TWITTER_CONSUMER_SECRET = "Q3N2roz8ggqpwFypvuJqCGNw6IIwfH7vG1X4l0KNo";
+
 
 var nombreDelTipo = "";
 var datosArray = new Array();
@@ -96,7 +102,7 @@ app.configure(function() {
         app.use(passport.initialize());
         app.use(passport.session());
         app.use(app.router);
-        //app.use(express.static(__dirname+"/public"));
+        app.use(express.static(__dirname+"/views"));
 });
 
 
@@ -104,6 +110,12 @@ app.configure(function() {
 app.get('/', function(req, res) {
         res.render('index', { user: req.user });        
 });
+
+
+app.get('/json', function(req, res) {
+        res.render('articulosjson', { user: req.user });        
+});
+
 
 /**
 app.get('/chat', function(req, res) {
@@ -118,7 +130,7 @@ app.get('/login', function(req, res) {
 
 app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.redirect('/json');
 });
 
 
@@ -137,7 +149,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new TwitterStrategy({
     consumerKey: TWITTER_CONSUMER_KEY,
     consumerSecret: TWITTER_CONSUMER_SECRET,
-    callbackURL: "http://127.0.0.1:8080/auth/twitter/callback"
+    callbackURL: "http://192.168.0.13:8080/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
       
@@ -152,7 +164,7 @@ passport.use(new TwitterStrategy({
 app.get('/auth/twitter', passport.authenticate('twitter'));
 
 app.get('/auth/twitter/callback', 
-  passport.authenticate('twitter', { successRedirect: '/',
+  passport.authenticate('twitter', { successRedirect: '/json',
                                      failureRedirect: '/login' }));
 
 
@@ -177,12 +189,12 @@ io.sockets.on('connection', function (socket) {
           var collection = new mongodb.Collection(client, 'mensajes');                       
          //Buscar Todos Los mensajes
             collection.find({}).toArray(function(err, docs) {
-                var datosString ="";
+                var datosString ='';;
                 for(var k=0; k< docs.length;k++)
                 {
-                    datosString += docs[k]["cuerpo"]["message"]+"<br/>";
+                    datosString += "<tr><td>"+docs[k]["cuerpo"]["message"]+"</td></tr>";
                 }
-                datosString+="Bienvenido al chat";
+                datosString+="<tr><td style='color:#fc2b2b'>Bienvenido al chat</td></tr>";                
                 socket.emit('message', {
                     message: datosString               
                 });
